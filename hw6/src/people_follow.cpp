@@ -9,10 +9,11 @@
 #include "geometry_msgs/PoseArray.h"
 #include "geometry_msgs/PoseWithCovarianceStamped.h"
 #include "people_msgs/PositionMeasurementArray.h"
+#include "people_msgs/PositionMeasurement.h"
 #include <vector>
 #include <iostream>
 
-std::vector<people_msgs::PositionMeasurementArray> peopleVec;
+std::vector<people_msgs::PositionMeasurement> peopleVec;
 float currPoseX;
 float currPoseY;
 float currPoseZ;
@@ -23,7 +24,10 @@ float getDistance(float currX, float currY, float targetX, float targetY) {
 
 void peopleCallback(const people_msgs::PositionMeasurementArray peopleMsg)
 {
-  peopleVec = peopleMsg.people;
+	for (int i = 0; i < peopleMsg.people.size(); i++) {
+		peopleVec.push_back(peopleMsg.people[i]);
+	}
+  //peopleVec = peopleMsg.people;
 }
 
 void poseCallback(const geometry_msgs::PoseWithCovarianceStamped poseMsg)
@@ -60,20 +64,14 @@ bool move_turtle_bot (double x, double y) {
 
 	//send the goal
     nav_client.sendGoal(goal);
-    double initTime = ros::Time::now().toSec();
     
     bool gotThere = false;
     
     while (!gotThere) {
-        timer = ros::Time::now().toSec() - initTime;
-        if (nav_client.getState() == actionlib::SimpleClientGoalState::SUCCEEDED && timer <= 60) {
-            gotThere = true;
-        }
-        else if (timer > 60)
-            nav_client.cancelGoal();
-            break;
-    } 
-    
+        if (nav_client.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
+			gotThere = true;
+		}
+	}
     return gotThere;
 }
 
@@ -96,14 +94,14 @@ int main(int argc, char **argv)
    
   if (peopleVec.size() > 0) {
     for (int i = 0; i < peopleVec.size(); i++) {
-        double dist = getDistance(currPoseX, currPoseY, peopleVec[i].pose.x, peopleVec[i].pose.y)
+        double dist = getDistance(currPoseX, currPoseY, peopleVec[i].pos.x, peopleVec[i].pos.y);
         if (dist < minDistance) {
             iClosest = i;
             minDistance = dist;
         }
     }
     
-    move_turtle_bot(peopleVec[iClosest].pose.x - 0.05, peopleVec[iClosest].pose.y);  
+    move_turtle_bot(peopleVec[iClosest].pos.x - 0.05, peopleVec[iClosest].pos.y);  
   }
   
   
