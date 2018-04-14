@@ -24,10 +24,11 @@ float getDistance(float currX, float currY, float targetX, float targetY) {
 
 void peopleCallback(const people_msgs::PositionMeasurementArray peopleMsg)
 {
+	peopleVec.clear();
 	for (int i = 0; i < peopleMsg.people.size(); i++) {
 		peopleVec.push_back(peopleMsg.people[i]);
 	}
-  //peopleVec = peopleMsg.people;
+	ROS_INFO("There are [%lu] people nearby", peopleVec.size());
 }
 
 void poseCallback(const geometry_msgs::PoseWithCovarianceStamped poseMsg)
@@ -35,8 +36,6 @@ void poseCallback(const geometry_msgs::PoseWithCovarianceStamped poseMsg)
     currPoseX = poseMsg.pose.pose.position.x;
     currPoseY = poseMsg.pose.pose.position.y;
     currPoseZ = poseMsg.pose.pose.position.z;
-    
-    ROS_INFO("Got a pose message with [%f]", poseMsg.pose.pose.position.x);
 }
 
 
@@ -71,6 +70,10 @@ bool move_turtle_bot (double x, double y) {
         if (nav_client.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
 			gotThere = true;
 		}
+		else if (nav_client.getState() == actionlib::SimpleClientGoalState::ABORTED) {
+			nav_client.cancelGoal();
+			break;
+		}
 	}
     return gotThere;
 }
@@ -88,24 +91,23 @@ int main(int argc, char **argv)
 
   ros::Subscriber poseSub = n.subscribe("amcl_pose", 100, poseCallback);
   
-  
-  int iClosest = -1;
-  double minDistance = 1000000000000;
+  while (ros::ok()) {
+	int iClosest = -1;
+	double minDistance = 1000000;
    
-  if (peopleVec.size() > 0) {
-    for (int i = 0; i < peopleVec.size(); i++) {
-        double dist = getDistance(currPoseX, currPoseY, peopleVec[i].pos.x, peopleVec[i].pos.y);
-        if (dist < minDistance) {
-            iClosest = i;
-            minDistance = dist;
-        }
-    }
-    
-    move_turtle_bot(peopleVec[iClosest].pos.x - 0.05, peopleVec[iClosest].pos.y);  
-  }
-  
-  
-  ros::spin();
+	if (peopleVec.size() > 0) {
+		//for (int i = 0; i < peopleVec.size(); i++) {
+		//	double dist = getDistance(currPoseX, currPoseY, peopleVec[i].pos.x, peopleVec[i].pos.y);
+		//	if (dist < minDistance) {
+		//		iClosest = i;
+		//		minDistance = dist;
+		//	}
+		//}
+		//ROS_INFO("Found a goal! Going to index [%d] with x: %f and y: %f ", iClosest, currPoseX + peopleVec[iClosest].pos.x, currPoseY + peopleVec[iClosest].pos.y);
+		move_turtle_bot(currPoseX + 0.9*peopleVec[0].pos.x, currPoseY + 0.9*peopleVec[0].pos.y);  
+	}
+	ros::spinOnce();
+}
 
 
   return 0;
