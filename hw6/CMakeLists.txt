@@ -3,6 +3,7 @@ project(hw6)
 
 find_package(catkin REQUIRED COMPONENTS
   actionlib
+  actionlib_msgs
   move_base_msgs
   roscpp
   rospy
@@ -15,9 +16,9 @@ find_package(catkin REQUIRED COMPONENTS
 
 
 catkin_package(
- INCLUDE_DIRS include
+ INCLUDE_DIRS 
  LIBRARIES hw6
- CATKIN_DEPENDS actionlib move_base_msgs roscpp rospy sensor_msgs std_msgs geometry_msgs people_msgs tf
+ CATKIN_DEPENDS actionlib actionlib_msgs move_base_msgs roscpp rospy sensor_msgs std_msgs geometry_msgs people_msgs tf
  DEPENDS system_lib
 )
 
