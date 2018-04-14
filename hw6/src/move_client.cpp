@@ -36,7 +36,7 @@ bool move_turtle_bot (double x, double y) {
     double initTime = ros::Time::now().toSec();
     
     bool gotThere = false;
-    
+    double timer;
     while (!gotThere) {
         timer = ros::Time::now().toSec() - initTime;
         if (nav_client.getState() == actionlib::SimpleClientGoalState::SUCCEEDED && timer <= 60) {
@@ -60,10 +60,10 @@ int main(int argc, char **argv)
     //nav_client.waitForServer(); //wait to make sure the service is there -- tihs has to be here even if you're use the service is already running
     //move_base_msgs::MoveBaseGoal goal;
   
-    x1 = 0.122;
-    y1 = 0.047;
-    x2 = -4.554;
-    y2 = -0.046;
+    double x1 = 0.122;
+    double y1 = 0.047;
+    double x2 = -4.554;
+    double y2 = -0.046;
   
     move_turtle_bot(x1, y1);
     
