@@ -1,0 +1,71 @@
+position:
+	x: 2.922
+	y: 13.86
+	z: 0.0
+
+position: 
+	x: 11.434
+	y: 13.567
+	z: 0.0
+
+position:
+	x: 19.973
+	y: 13.41
+	z: 0.0
+
+position:
+	x: 26.30
+	y: 13.587
+	z: 0.0
+
+position:
+	x: 22.932
+	y: 14.364
+	z: 0.0
+
+position: 
+	x: 12.41
+	y: 14.306
+	z: 0.0
+
+position:
+	x: 5.59
+	y: 14.36
+	z:0.0
+
+position:
+	x: 6.237
+	y: 17.24
+	z: 0.0
+
+position:
+	x: 6.244
+	y: 23.65
+	z: 0.0
+
+position:
+	x: 6.66
+	y: 34.54
+	z: 0.0
+
+position:
+	x: 5.40
+	y: 33.24
+	z: 0.0
+
+position:
+	x: 5.035
+	y: 26.69
+	z: 0.0
+
+position:
+	x: 5.28
+	y: 17.73
+	z: 0.0
+
+position:
+	x: 5.53
+	y: 13.68
+	z: 0.0
+
+

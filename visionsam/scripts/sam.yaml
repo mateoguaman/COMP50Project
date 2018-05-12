@@ -1,0 +1,56 @@
+name: 212 
+frame_id: map
+radius: 0.5
+pose: 
+	position:
+		x: 20.8988624597
+		y: 13.9418129663
+		z: 0
+	orientation:
+		x: 0
+		y: 0
+		z: 0
+		w: 1
+
+name: WOMEN 
+frame_id: map
+radius: 0.5
+pose: 
+	position:
+		x: 25.4975040496
+		y: 13.7497505472
+		z: 0
+	orientation:
+		x: 0
+		y: 0
+		z: 0
+		w: 1
+
+name: 221 
+frame_id: map
+radius: 0.5
+pose: 
+	position:
+		x: 23.6913857424
+		y: 14.1841519143
+		z: 0
+	orientation:
+		x: 0
+		y: 0
+		z: 0
+		w: 1
+
+name: 221 
+frame_id: map
+radius: 0.5
+pose: 
+	position:
+		x: 23.4177965955
+		y: 14.2174106071
+		z: 0
+	orientation:
+		x: 0
+		y: 0
+		z: 0
+		w: 1
+

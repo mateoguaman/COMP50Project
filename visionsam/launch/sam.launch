@@ -1,0 +1,10 @@
+<launch>
+<node pkg="usb_cam" type="usb_cam_node" name="usb_cam_node">
+</node>
+<node pkg="visionsam" type="raw_image_sub.py" name="raw_image_sub.py" output="screen">
+</node>
+<node pkg="visionsam" type="yamlcreator.py" name="yamlcreator.py" output="screen">
+</node>
+<node pkg="visionsam" type="move.py" name="move.py" output="screen">
+</node>
+</launch>
